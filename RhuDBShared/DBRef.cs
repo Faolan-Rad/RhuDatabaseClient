@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using Newtonsoft.Json;
+
 namespace RhuDBShared
 {
 	public interface IDBRef {
@@ -12,12 +14,23 @@ namespace RhuDBShared
 
 	public class DBRef<T> : DBObject, IDBRef where T : DBElement
 	{
-		public T Target { get; private set; }
+		[JsonIgnore]
+		public T Target
+		{
+			get {
+				if ((_target?.Updated??true) || _target.SnowFlake != TargetSnowFlake) {
+					_target = TargetSnowFlake == 0 ? null : DBRoot.GetElement<T>(TargetSnowFlake);
+				}
+				return _target;
+			}
+		}
+		[JsonIgnore]
+		private T _target;
 
 		public ulong TargetSnowFlake
 		{
-			get => Target?.SnowFlake ?? 0;
-			set => Target = DBRoot.GetElement<T>(value);
+			get;
+			set;
 		}
 
 	}

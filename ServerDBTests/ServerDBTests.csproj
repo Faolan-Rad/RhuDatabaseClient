@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ClientDB\ClientDB.csproj" />
     <ProjectReference Include="..\ServerDB\ServerDB.csproj" />
     <ProjectReference Include="..\TestModel\TestModel.csproj" />
   </ItemGroup>

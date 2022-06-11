@@ -14,7 +14,7 @@ namespace TestModel
 	{
 		public string WorldName { get; set; }
 
-		public readonly DBRef<User> Owner;
+		public DBRef<User> Owner;
 
 	}
 }
